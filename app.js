@@ -3,12 +3,16 @@ const mongoose = require("mongoose");
 const expressLayouts = require("express-ejs-layouts");
 const flash = require("connect-flash");
 const session = require("express-session");
+const passport = require('passport');
 
 // const ejs = require("ejs");
 // const ejsLocals = require("ejs-locals");
 
 const app = express();
 const PORT = process.env.PORT || 5000 ;
+
+//Passport congfig
+require("./config/passport")(passport);
 
 //DB Configuration
 const db = require("./config/keys").MongoURI;
@@ -34,11 +38,16 @@ app.use(session({
     saveUninitialized: true
   }))
 
-//flash-messages
+//passport middleware
+app.use(passport.initialize());
+app.use(passport.session());
+
+//flash-messages (global var)
 app.use(flash());
 app.use((req , res , next) =>{
     res.locals.success_msg = req.flash('success_msg');
     res.locals.error_msg = req.flash('error_msg');
+    res.locals.error  = req.flash('error');
     next();
 })
 

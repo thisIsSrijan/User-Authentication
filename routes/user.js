@@ -2,6 +2,7 @@ const express = require("express");
 const bcrypt = require('bcryptjs');  //for hashing and salting passwords
 const mongoose = require("mongoose");
 const router = express.Router();
+const passport  = require("passport");
 
 //requiring the User model
 const User = require("../models/User");
@@ -96,4 +97,24 @@ router.post("/register", (req, res) => {
   }
 });
 
+//login handle
+router.post('/login' , (req , res , next) => {
+  passport.authenticate('local' , {
+    successRedirect : '/dashboard',
+    failureRedirect : '/user/login',
+    failureFlash : true
+  })(req, res, next)
+});
+
+//logout handle \
+router.get('/logout' , (req ,res) =>{ 
+  req.logout( (err) =>{  //logout now requires a callback funciton
+    if(err){
+      console.log(err);
+    }
+  });
+  req.flash('success_msg' , 'You are logged out');
+  res.redirect('/user/login');
+});
+ 
 module.exports = router;

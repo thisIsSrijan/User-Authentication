@@ -1,3 +1,5 @@
 module.exports = {
-    MongoURI : 'mongodb+srv://Srijan:16082002@freecluster.iznb4iq.mongodb.net/?retryWrites=true&w=majority'
+    MongoURI : 'mongodb+srv://Srijan:<REPLACE WITH YOUR PASSWORD>@freecluster.iznb4iq.mongodb.net/?retryWrites=true&w=majority'
 }
+
+//change server pass

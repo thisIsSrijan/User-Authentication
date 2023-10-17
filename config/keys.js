@@ -1,3 +1,7 @@
+const config = require('../config');
+
+var myKey = config.PASS;
+
 module.exports = {
-    MongoURI : 'mongodb+srv://Srijan:16082002@freecluster.iznb4iq.mongodb.net/?retryWrites=true&w=majority'
+    MongoURI : 'mongodb+srv://Srijan:'+myKey+'@freecluster.iznb4iq.mongodb.net/?retryWrites=true&w=majority'
 }
